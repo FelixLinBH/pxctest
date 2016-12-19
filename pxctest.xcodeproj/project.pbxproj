@@ -46,6 +46,8 @@
 		05E3DE6E1DED319D005A1459 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE6D1DED319D005A1459 /* Command.swift */; };
 		05E3DE741DED574B005A1459 /* ConsoleReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE731DED574B005A1459 /* ConsoleReporter.swift */; };
 		05E3DE761DED58ED005A1459 /* JSONReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE751DED58ED005A1459 /* JSONReporter.swift */; };
+		05F8C9E31E07FF0F0075A7D2 /* PartitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F8C9E21E07FF0F0075A7D2 /* PartitionManager.swift */; };
+		05F8C9EB1E0801B10075A7D2 /* PartitionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F8C9EA1E0801B10075A7D2 /* PartitionManagerTests.swift */; };
 		3E0FCD891DFC276400B11385 /* ListTestsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0FCD881DFC276400B11385 /* ListTestsCommand.swift */; };
 		3E4CA6EF1DFBBA22005216A3 /* Int+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CA6EE1DFBBA22005216A3 /* Int+PXCTestKit.swift */; };
 		3E4CA6F61DFBBB6E005216A3 /* NotificationHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CA6F51DFBBB6E005216A3 /* NotificationHandlerTests.swift */; };
@@ -266,6 +268,8 @@
 		05E3DE6D1DED319D005A1459 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		05E3DE731DED574B005A1459 /* ConsoleReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleReporter.swift; sourceTree = "<group>"; };
 		05E3DE751DED58ED005A1459 /* JSONReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONReporter.swift; sourceTree = "<group>"; };
+		05F8C9E21E07FF0F0075A7D2 /* PartitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartitionManager.swift; sourceTree = "<group>"; };
+		05F8C9EA1E0801B10075A7D2 /* PartitionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartitionManagerTests.swift; sourceTree = "<group>"; };
 		3E0FCD881DFC276400B11385 /* ListTestsCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTestsCommand.swift; sourceTree = "<group>"; };
 		3E4CA6E51DFBB097005216A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E4CA6EE1DFBBA22005216A3 /* Int+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+PXCTestKit.swift"; sourceTree = "<group>"; };
@@ -390,22 +394,23 @@
 		05BABC931DE56E390012BC5B /* PXCTestKit */ = {
 			isa = PBXGroup;
 			children = (
-				05BABC941DE56E390012BC5B /* PXCTestKit.h */,
-				05BABC951DE56E390012BC5B /* Info.plist */,
 				3E4CA70C1DFBCA90005216A3 /* ANSI.swift */,
+				05BABCE81DE5829D0012BC5B /* Command */,
 				05BABCAB1DE56E9A0012BC5B /* CommandLineInterface.swift */,
 				3E4CA70D1DFBCA90005216A3 /* ConsoleErrorFormatter.swift */,
 				3E4CA70E1DFBCA90005216A3 /* ConsoleOutput.swift */,
 				05B2CA341DEBE94F00795F07 /* Environment.swift */,
+				0511CB491DF3F542009B8B2F /* Extension */,
+				05BABC951DE56E390012BC5B /* Info.plist */,
 				3E4CA70F1DFBCA90005216A3 /* NotificationHandler.swift */,
+				05BABCE91DE5829D0012BC5B /* Option */,
 				3E4CA7101DFBCA90005216A3 /* OutputManager.swift */,
+				05F8C9E21E07FF0F0075A7D2 /* PartitionManager.swift */,
+				05BABC941DE56E390012BC5B /* PXCTestKit.h */,
+				053634A11DE7E0F400F7BDB8 /* PXCTestKit.xcconfig */,
+				0541E15B1DE59FFF00D65F16 /* Reporter */,
 				3E4CA7111DFBCA90005216A3 /* ReporterRegistry.swift */,
 				3E4CA7091DFBCA5B005216A3 /* SignalHandler.swift */,
-				053634A11DE7E0F400F7BDB8 /* PXCTestKit.xcconfig */,
-				05BABCE81DE5829D0012BC5B /* Command */,
-				0511CB491DF3F542009B8B2F /* Extension */,
-				05BABCE91DE5829D0012BC5B /* Option */,
-				0541E15B1DE59FFF00D65F16 /* Reporter */,
 			);
 			path = PXCTestKit;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				3E4CA6F51DFBBB6E005216A3 /* NotificationHandlerTests.swift */,
 				05B6EC221DEFC8ED008CBBEE /* OnlyOptionTests.swift */,
 				3EB0AEA71DF2B4FE003D72CC /* OutputManagerTests.swift */,
+				05F8C9EA1E0801B10075A7D2 /* PartitionManagerTests.swift */,
 				0554B6B71E07923500299699 /* PXCTestKitTests.xcconfig */,
 				05BC2B491DEABA0A00ED3F58 /* RunTestsCommandTests.swift */,
 				05BE2FA01E0682CE0097B23D /* TestConsoleOutput.swift */,
@@ -845,6 +851,7 @@
 			files = (
 				0541E15D1DE5A02C00D65F16 /* RSpecReporter.swift in Sources */,
 				05564E111DF65BE500DC995C /* FBSimulatorInteraction+PXCTestKit.swift in Sources */,
+				05F8C9E31E07FF0F0075A7D2 /* PartitionManager.swift in Sources */,
 				05B2CA351DEBE94F00795F07 /* Environment.swift in Sources */,
 				3E4CA7171DFBCA90005216A3 /* ReporterRegistry.swift in Sources */,
 				05E1B3011DE7066E00C38DB1 /* OnlyOption.swift in Sources */,
@@ -881,6 +888,7 @@
 			files = (
 				05BE2FA11E0682CE0097B23D /* TestConsoleOutput.swift in Sources */,
 				05BC2B4A1DEABA0A00ED3F58 /* RunTestsCommandTests.swift in Sources */,
+				05F8C9EB1E0801B10075A7D2 /* PartitionManagerTests.swift in Sources */,
 				05B2CA371DEBEA1F00795F07 /* EnvironmentTests.swift in Sources */,
 				3E9D461F1DFA507F006DDB10 /* ConsoleOutputTests.swift in Sources */,
 				3EB0AEA81DF2B4FE003D72CC /* OutputManagerTests.swift in Sources */,

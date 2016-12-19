@@ -82,6 +82,7 @@ import Foundation
                        Option<FileURLOption>("output", FileURLOption(url: URL(fileURLWithPath: "output")), description: "Output path where the test reports and log files should be stored."),
                        Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
                        Option<DefaultsOption>("defaults", DefaultsOption(), description: "Path to some defaults.json to be applied with the Simulator."),
+                       Option<Int>("partitions", 1, description: "Partition your test targets for higher parallelism."),
                        Option<ReporterOption>("reporter", .rspec, description: "Console reporter type. Supported values: rspec, json"),
                        VariadicOption<OnlyOption>("only", [], description: "Comma separated list of tests that should be executed only. Format: TARGET[:Class/case[,Class2/case2]]"),
                        VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
@@ -89,7 +90,7 @@ import Foundation
                        Flag("no-color", description: "Do not add colors to console output."),
                        Flag("debug", description: "Enable debug logging (in simulator.log)."),
                        description: "Runs tests on Simulators."
-            ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor, debugLogging) in
+            ) { (testRun, deviceSet, output, locale, defaults, partitions, reporter, only, destination, timeout, noColor, debugLogging) in
                 ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()
                 let notificationHandler = NotificationHandler()
@@ -101,6 +102,7 @@ import Foundation
                     locale: locale,
                     environment: ProcessInfo.processInfo.environment,
                     defaults: defaults.dictionary,
+                    partitions: partitions,
                     reporterType: reporter.type,
                     testsToRun: only.dictionary(),
                     simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),

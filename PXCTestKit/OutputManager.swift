@@ -46,9 +46,9 @@ final class OutputManager {
         return logFileHandle!
     }
 
-    func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun, testErrors: [RunTestsCommand.TestError]) throws {
+    func extractDiagnostics(simulators: [FBSimulator], targets: [FBXCTestRunTarget], testErrors: [RunTestsCommand.TestError]) throws {
         for simulator in simulators {
-            for target in testRun.targets {
+            for target in targets {
                 for application in target.applications {
                     guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
                     let destinationPath = urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).path

@@ -70,6 +70,7 @@ extension RunTestsCommand {
         let locale: Locale
         let environment: [String: String]
         let defaults: [String: [String: Any]]
+        let partitions: Int
         let reporterType: ConsoleReporter.Type
         let testsToRun: [String: Set<String>]
         let simulatorConfigurations: [FBSimulatorConfiguration]

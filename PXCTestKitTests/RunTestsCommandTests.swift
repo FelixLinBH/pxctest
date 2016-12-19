@@ -219,6 +219,7 @@ extension RunTestsCommand.Context {
             locale: Locale.current,
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
             defaults: [:],
+            partitions: 1,
             reporterType: reporterType,
             testsToRun: testsToRun,
             simulatorConfigurations: fixtures.simulatorConfigurations,

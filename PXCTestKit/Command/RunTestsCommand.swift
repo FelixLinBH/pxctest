@@ -53,22 +53,27 @@ final class RunTestsCommand: Command {
 
     func run(control: FBSimulatorControl) throws {
         let testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
+        let partitionManager = PartitionManager(partitions: context.partitions)
 
         try context.outputManager.reset(
-            targets: testRun.targets.map({ $0.name }),
+            targets: partitionManager.partitionNames(for: testRun.targets.map({ $0.name })),
             simulatorConfigurations: context.simulatorConfigurations
         )
 
-        simulators = try context.simulatorConfigurations.map {
-            try control.pool.allocateSimulator(with: $0, options: context.simulatorAllocationOptions)
-        }
+        simulators = try partitionManager.allocateSimulators(
+            allocator: control.pool,
+            simulatorAllocationOptions: context.simulatorAllocationOptions,
+            simulatorConfigurations: context.simulatorConfigurations
+        )
 
         try simulators.loadDefaults(context: context)
         try simulators.overrideWatchDogTimer(targets: testRun.targets)
         try simulators.boot(context: context)
 
-        let testErrors = try test(simulators: simulators, testRun: testRun)
-        try context.outputManager.extractDiagnostics(simulators: simulators, testRun: testRun, testErrors: testErrors)
+        let targets = partitionManager.partitionTargets(simulator: simulators.first!, targets: testRun.targets)
+
+        let testErrors = try test(simulators: simulators, targets: targets)
+        try context.outputManager.extractDiagnostics(simulators: simulators, targets: testRun.targets, testErrors: testErrors)
 
         if testErrors.count > 0 {
             throw RuntimeError.testRunHadErrors(testErrors)
@@ -79,10 +84,10 @@ final class RunTestsCommand: Command {
 
     // MARK: - Private
 
-    private func test(simulators: [FBSimulator], testRun: FBXCTestRun) throws -> [TestError] {
+    private func test(simulators: [FBSimulator], targets: [FBXCTestRunTarget]) throws -> [TestError] {
         var errors: [TestError] = []
 
-        for target in testRun.targets {
+        for target in targets {
             if context.testsToRun.count > 0 && context.testsToRun[target.name] == nil {
                 continue
             }
